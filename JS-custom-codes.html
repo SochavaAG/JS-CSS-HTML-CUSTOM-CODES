@@ -1,0 +1,225 @@
+<!-- www.1340gallery.com -->
+<script type="text/javascript">
+  function isValidName(name) {
+    return /^[a-zA-Z'][a-zA-Z' ]+[a-zA-Z']?$/u.test(name);
+  }
+
+
+  function isValidUrl(url) {
+    if (url == 'http://1340gallery.com/') { return false;}
+    return  /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/.test(url);
+  }
+
+  function isValidEmail(email) {
+    return /^([a-z0-9_-]+\.)*[a-z0-9_-]+@[a-z0-9_-]+(\.[a-z0-9_-]+)*\.[a-z]{2,6}$/.test(email);
+  }
+
+  function isValidPass(pass) {
+    return /(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])/g.test(pass);
+  }
+</script>
+<!-- /www.1340gallery.com -->
+
+<!-- sportlabsgroup.com -->
+<script type="text/javascript">
+  function hasClass(ele,cls) {
+    return !!ele.className.match(new RegExp('(\\s|^)'+cls+'(\\s|$)'));
+  }
+  function addClass(ele,cls) {
+    if (!hasClass(ele,cls)) ele.className += " "+cls;
+  }
+  function removeClass(ele,cls) {
+    if (hasClass(ele,cls)) {
+      var reg = new RegExp('(\\s|^)'+cls+'(\\s|$)');
+      ele.className=ele.className.replace(reg,'');
+    }
+  }
+
+  function random(min, max) {
+    if (max == null) { max = min; min = 0; }
+    if (min > max) { var tmp = min; min = max; max = tmp; }
+    return min + (max - min) * Math.random();
+  }
+</script>
+<!-- /sportlabsgroup.com -->
+
+<!-- landing.ua -->
+<script type="text/javascript">
+document.onselectstart = function() { return false; }; // запрещает выделять текст курсором
+</script>
+<!-- /landing.ua -->
+
+<!-- svitlopark.ua -->
+<script type="text/javascript">
+  function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  var color = getRandomInt(1, 6),
+    color_class = 'color_' + color,
+    body = document.getElementById("sp_body");
+  body.className += color_class;
+</script>
+<!-- /svitlopark.ua -->
+
+<!-- mobilunity.com -->
+<script type="text/javascript">
+  _nQc = '89270203';
+  _nQs = 'WordPress-Plugin';
+  _nQsv = '1.3.1';
+  _nQt = new Date().getTime();
+  (function () {
+    var no = document.createElement('script');
+    no.type = 'text/javascript';
+    no.async = true;
+    no.src = ('https:' == document.location.protocol ? 'https://' : 'http://') + 'serve.albacross.com/track.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(no, s);
+  })();
+</script>
+<!-- /mobilunity.com -->
+
+<!-- www.fontlab.com_font-converter_transtype -->
+<script src="js/webfont.js"></script>
+  <script>
+  WebFont.load({
+    google: {
+      families: ["Lato:100,300,400,700,900", "PT Sans Caption:400,700:latin-ext,cyrillic-ext,latin,cyrillic"]
+    }
+  });
+</script>
+<!--------------------------------------------------------------------------------------->
+<script>
+if (/(mobile|android)/i.test(navigator.userAgent)) {
+  document.documentElement.className += ' w-mobile';
+} else {
+  document.documentElement.className += ' desktop';
+}
+if (/(chrom)/i.test(navigator.userAgent)) document.documentElement.className += ' browser-chrome';
+</script>
+<!-- /www.fontlab.com_font-converter_transtype -->
+
+<!-- www.hotjar.com -->
+<script>hsjQuery = window['jQuery'];</script>
+<!-- /www.hotjar.com -->
+
+<!-- 4g.vodafone.ua -->
+<ul>
+  <li>
+    <a href="javascript: void(0);">Вінницька область</a>
+  </li>
+</ul>
+<!--------------------------------------------------------------------------------------->
+<script type="text/javascript" defer>
+  $(document).ready(function () {
+    var resp = null;
+    if (resp) {
+
+      if (resp[0] != false) {
+        var content, block4g;
+        if (resp.good) {
+          content = resp.good;
+        }
+        if (resp.sim) {
+          content = resp.sim;
+        }
+        if (resp.hard) {
+          content = resp.hard;
+        }
+        if (resp.all) {
+          content = resp.all;
+        }
+
+        if (typeof content != undefined) $('.result').addClass('done');
+
+        $('#ph').val('');
+
+        $('[name="code"]').val('');
+
+        $('.result').html(content);
+
+        setTimeout(function () {
+          console.log('scroll');
+          $('html, body').animate({scrollTop: $('.done').offset().top - ($('.done').height() / 2 + screen.height / 2.7)}, 1600);
+        }, 1000);
+      }
+    }
+  });
+</script>
+<!--------------------------------------------------------------------------------------->
+<script>
+  var mob_prod = false;
+  var mob_prod = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  var LANG = 'uk';
+  $(document).ready(function () {
+    $('[name="code"]').keyup(function (e) {
+      if (this.value.match(/[^0-9]/g)) {
+        this.value = this.value.replace(/[^0-9]/g, '');
+      }
+    });
+    var wait = 0;
+    $('#get_code').click(function (e) {
+      e.preventDefault();
+      if (wait == 0) {
+        $.ajax({
+          url: '/' + LANG + '/api/network/sms_verification',
+          type: 'POST',
+          data: {phone: $('#ph').val(), _token: $('[name="_token"]').val()},
+          beforeSend: function () {
+            wait = 1;
+          },
+          success: function (response) {
+            $('.sms-form').css('display', 'flex');
+          },
+          complete: function () {
+            wait = 0;
+          }
+        });
+      }
+    });
+
+    $('#check').click(function (e) {
+      e.preventDefault();
+      $.ajax({
+        url: '/' + LANG + '/api/network/check_4g',
+        type: 'POST',
+        data: {
+          phone: $('#ph').val(),
+          code: $('[name="code"]').val(),
+          _token: $('[name="_token"]').val()
+        },
+        beforeSend: function () {
+        },
+        success: function (response) {
+          var resp = JSON.parse(response);
+          var content, block4g;
+          if (resp.good) {
+            content = resp.good;
+          }
+          if (resp.sim) {
+            content = resp.sim;
+          }
+          if (resp.hard) {
+            content = resp.hard;
+          }
+          if (resp.all) {
+            content = resp.all;
+          }
+          $('.result').addClass('done');
+          $('#ph').val('');
+          $('[name="code"]').val('');
+          $('.result').html(content);
+          $('html, body').animate({scrollTop: $('.done').offset().top}, 1600);
+        },
+        complete: function () {
+        }
+      });
+    });
+    /*
+     $('#4gussd').click(function () {
+     window.open('tel:%2A222%23');
+     })
+     */
+  });
+</script>
+<!-- /4g.vodafone.ua -->
