@@ -1,3 +1,476 @@
+<!--suppress ALL -->
+
+<!--  -->
+<script type="text/javascript">
+
+</script>
+<!-- / -->
+
+<!--  -->
+<script type="text/javascript">
+  //--| date & time |---//
+  var harvestdate = new Date();
+  var harvesthour = harvestdate.getHours();
+  var harvesttime = "";
+
+  if ((harvesthour >= 19) || (harvesthour <= 5)) {
+    harvesttime = "night";
+  } else {
+    harvesttime = "";
+  }
+
+  //---| include style sheet for modern browser scrollbars (except ipad and iphone) |---//
+  if (navigator.userAgent.indexOf("iPhone") != -1 || navigator.userAgent.indexOf("iPad") != -1) {
+    //nothing
+  } else {
+    document.write("<link rel=\"stylesheet\" type=\"text/css\" href=\"css/scrollbar.css\" />")
+  }
+  document.write("<link rel=\"stylesheet\" type=\"text/css\" href=\"css/services" + harvesttime + ".css\" />")
+  document.write("<link rel=\"stylesheet\" type=\"text/css\" href=\"css/services" + harvesttime + "-response.css\" />")
+</script>
+<!-- / -->
+
+<!-- hackgames.su -->
+<script type="text/javascript">
+  function checkform(id, name, num){
+    if($("#"+id).css('display') != 'none' && $("#"+id).css('display') != undefined){
+      var value = $('#'+id+' input').eq(num).val();
+      var data = name+'='+value;
+      $.ajax({
+        type: 'POST',
+        url: '/api',
+        data: data,
+        success: function(data){
+          if(data == 1){
+            $('#'+id+' .alert').eq(num).css('opacity','0');
+            $('#'+id+' .alert').eq(num).css('height','0');
+            $('#'+id+' :input[type="submit"]').prop('disabled', false);
+          }
+          else{
+            $('#'+id+' .alert').eq(num).css('opacity','1');
+            $('#'+id+' .alert').eq(num).css('height','unset');
+            $('#'+id+' :input[type="submit"]').prop('disabled', true);
+          }
+        }
+      });
+    }
+  }
+
+  function checkPayment(){
+    var value = $('#payment-input').val();
+    if(value.length > 0){
+      $("#payment-form").submit();
+    }
+    else{
+      $("#form-alert h3").text('Введите сумму пополнения');
+      $("#form-alert").addClass("open-form");
+    }
+  }
+
+  function checkpass(id, num){
+    var value = $('#'+id+' input').eq(num).val();
+    if(value.length > 5){
+      $('#'+id+' .alert').eq(num).css('opacity','0');
+      $('#'+id+' :input[type="submit"]').prop('disabled', false);
+    }
+    else{
+      $('#'+id+' .alert').eq(num).css('opacity','1');
+      $('#'+id+' :input[type="submit"]').prop('disabled', true);
+    }
+  }
+
+  function checkrepass(id, pass, num){
+    var value0 = $('#'+id+' input').eq(pass).val();
+    var value = $('#'+id+' input').eq(num).val();
+    if(value == value0){
+      $('#'+id+' .alert').eq(num).css('opacity','0');
+      $('#'+id+' :input[type="submit"]').prop('disabled', false);
+    }
+    else{
+      $('#'+id+' .alert').eq(num).css('opacity','1');
+      $('#'+id+' :input[type="submit"]').prop('disabled', true);
+    }
+  }
+</script>
+<!-- /hackgames.su -->
+
+<!-- fitnes-guru.ru -->
+<script type="text/javascript">
+  /*-------video1------*/
+  var video = document.getElementById("bgvideo1");
+  var vid = document.getElementById("black-block1");
+  vid.onmouseover = function(){
+    video.play();
+  }
+  vid.onmouseout = function(){
+    video.pause();
+  }
+</script>
+<!-- /fitnes-guru.ru -->
+
+<!-- codepoint.tk_Airbeale -->
+<script type="text/javascript">
+  // validate form
+  $("#form").submit(function () {
+
+    var error = 0;
+    var phoneV = $(this).find('.phone-number').val();
+    var phoneLngth = phoneV.length;
+
+    if( /[^0-9]/.test(phoneV) ) {
+      $(this).find('.phone-number').addClass('not-valid');
+      $(this).children(".input-holder").children(".message").text('Номер телефона должен содержать только цифры');
+      error = 2;
+    } else if (phoneLngth <= 3) {
+      $(this).find('.phone-number').addClass('not-valid');
+      $(this).children(".input-holder").children(".message").text('Введите пожалуйста ваш номер телефона');
+      error = 1;
+    } else {
+      $(this).find('.phone-number').addClass('valid');
+    }
+
+    if (error === 0) {
+      return true;
+    }
+    else {
+      return false;
+    }
+  });
+
+  // clock
+  clockMain();
+
+  function clockMain() {
+    var date = new Date();
+    var hour=date.getHours();
+    var minute=date.getMinutes();
+
+    document.getElementById('clockMain').innerHTML = hour+':'+(minute<10?'0':'')+minute;
+    window.setTimeout('clockMain()',1000);
+  }
+</script>
+<!-- /codepoint.tk_Airbeale -->
+
+<!-- codeman.online -->
+<script src="js/typewriter.js"></script>
+
+<script type="text/javascript">
+  // Typing Intro Init
+  $(".typed").typewriter({
+    speed: 60
+  });
+
+  // Navbar Init
+  $('nav').addClass('original').clone().insertAfter('nav').addClass('navbar-fixed-top').css('position', 'fixed').css('top', '0').css('margin-top', '0').removeClass('original');
+  $('.mobile-nav ul').html($('nav .navbar-nav').html());
+  $('nav.navbar-fixed-top .navbar-brand img').attr('src', $('nav.navbar-fixed-top .navbar-brand img').data("active-url"));
+
+  // Popup Form Init
+  var i = 0;
+  var interval = 0.15;
+  $('.popup-form .dropdown-menu li').each(function () {
+    $(this).css('animation-delay', i + "s");
+    i += interval;
+  });
+  $('.popup-form .dropdown-menu li a').click(function (event) {
+    event.preventDefault();
+    $(this).parent().parent().prev('button').html($(this).html());
+  });
+
+  // Window Resize
+  $(window).resize(function() {
+    $('header').height($(window).height());
+  });
+</script>
+<!-- /codeman.online -->
+
+<!-- chaos.com.ua -->
+<script type="text/javascript">
+  $(document).on('click', function(e) {
+    if (!$(e.target).hasClass("projects-filters__btn") && !$('.projects-filters__list-wrapper').find(e.target).length) {
+      $('.projects-filters__btn').removeClass('projects-filters__btn--active');
+      $('.projects-filters__list-wrapper').removeClass('projects-filters__list-wrapper--on');
+    }
+
+    if (e.target.id != 'menu-map' && !$('#menu-map').find(e.target).length) {
+      $('.menu__map').removeClass('menu__map--active');
+      $('.menu__contacts-text--location').removeClass('menu__contacts-text--location--hover');
+    }
+
+    if (e.target.id != 'contacts-map' && !$('#contacts-map').find(e.target).length) {
+      $('.contacts__item--location').removeClass('contacts__item--location--hover');
+      $('.contacts__map').removeClass('contacts__map--active');
+    }
+  });
+
+  //Footer scroll to top button
+  $('.footer__scroll-top').on('click', function(e) {
+    e.preventDefault();
+    $('html, body').animate({scrollTop : 0}, 800);
+  });
+
+  // mask
+  $("#footer-phone, #menu-phone, #contacts-phone").mask("+380999999999");
+
+  //
+  $(".contacts-form__input-contacts-phone, #footer-phone, #menu-phone").keydown(function (e) {
+    if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+      (e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+      (e.keyCode >= 35 && e.keyCode <= 40)) {
+      return;
+    }
+    if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+      e.preventDefault();
+    }
+  });
+
+  $('#footer-phone').keydown(function() {
+    if (this.value.length > 1) {
+      $('.contacts__callme-submit').css("visibility","visible");
+    } else {
+      $('.contacts__callme-submit').css("visibility","hidden");
+    }
+  });
+
+  //Accordion
+  $('.accordion__list > li:eq(0) p').slideDown();
+
+  $('.accordion__list a').click(function(e) {
+    var dropDown = $(this).closest('li').find('p');
+
+    $(this).closest('.accordion__list').find('p').not(dropDown).slideUp();
+
+    if ($(this).children().hasClass('accordion__btn--active')) {
+      $(this).children().removeClass('accordion__btn--active');
+    } else {
+      $(this).closest('.accordion__list').find('span.accordion__btn--active').removeClass('accordion__btn--active');
+      $(this).children().addClass('accordion__btn--active');
+    }
+    dropDown.stop(false, true).slideToggle();
+    e.preventDefault();
+  });
+
+  //
+  function witty() {
+    var $win = $(window);
+    var winH = $win.height();
+
+    $win.on("scroll", function () {
+      if($(this).scrollTop() + winH > $(document).height() - 170) {
+        $('.contacts').addClass('contacts--scale');
+        $('.top').addClass('top--hide');
+        $('.bottom').addClass('bottom--hide');
+        $('.left').addClass('left--hide');
+        $('.right').addClass('right--hide');
+        $('.header-top').addClass('header-top--hide');
+        $('.navbar-toggle').addClass('navbar-toggle--hide');
+        $('.header-socials').addClass('header-socials--hide');
+        // $('.section__down').fadeOut();
+      } else {
+        $('.contacts').removeClass('contacts--scale');
+        $('.top').removeClass('top--hide');
+        $('.bottom').removeClass('bottom--hide');
+        $('.left').removeClass('left--hide');
+        $('.right').removeClass('right--hide');
+        $('.header-top').removeClass('header-top--hide');
+        $('.navbar-toggle').removeClass('navbar-toggle--hide');
+        $('.header-socials').removeClass('header-socials--hide');
+      }
+    }).on("resize", function(){
+      winH = $(this).height();
+    });
+  };
+
+  //
+  var swiper = new Swiper('#projects-slider', {
+    direction: 'vertical',
+    pagination: '.projects__pagination',
+    paginationClickable: true,
+    bulletClass: 'projects__page',
+    bulletActiveClass: 'projects__page--active',
+    autoplay: 7000,
+    speed: 1000,
+    loop: true,
+    calculateHeight:true,
+    autoplayDisableOnInteraction: false,
+    breakpoints: {
+      1023: {
+        direction: 'horizontal'
+      }
+    },
+    paginationBulletRender: function (swiper, index, className) {
+      return '<div class="' + className + '">' + 0 + (index + 1) + '</div>';
+    }
+  });
+
+  // input[type=file]
+  $(".contacts-form-attach__input").change(function(){
+    var filename = $('input[type=file]').val().split('\\').pop();
+    $('#uploadFile').removeClass('hidden');
+    $('.contacts-form__format').hide();
+    $('#uploadFile').text('Файл ' + filename + ' прикреплен');
+    $(this).css("visibility","hidden");
+    $(".contacts-form-attach__label").css("visibility","hidden");
+  });
+
+  //
+  var swiper = new Swiper('#agency-trust-slider', {
+    slidesPerView: 6,
+    spaceBetween: 40,
+    nextButton: '.agency-trust__next',
+    prevButton: '.agency-trust__prev',
+    loop: true,
+    autoplay: 2000,
+    speed: 600,
+    autoplayDisableOnInteraction: false,
+
+    breakpoints: {
+      767: {
+        slidesPerView: 1,
+        spaceBetween: 0
+      },
+      1023: {
+        slidesPerView: 3,
+        spaceBetween: 0
+      },
+      1439: {
+        slidesPerView: 4,
+        spaceBetween: 0
+      }
+    }
+  });
+</script>
+<!-- /chaos.com.ua -->
+
+<!-- buybuy.co -->
+<script type="text/javascript">
+  if (typeof wpcf7 === 'undefined' || wpcf7 === null) {
+    return;
+  }
+
+  //
+  if ($(':checkbox, :radio', this).is(':checked')) {
+    $freetext.prop('disabled', false);
+  } else {
+    $freetext.prop('disabled', true);
+  }
+
+  // URL Input Correction
+  $form.on('change', '.wpcf7-validates-as-url', function () {
+    var val = $.trim($(this).val());
+
+    if (val
+      && !val.match(/^[a-z][a-z0-9.+-]*:/i)
+      && -1 !== val.indexOf('.')) {
+      val = val.replace(/^\/+/, '');
+      val = 'http://' + val;
+    }
+
+    $(this).val(val);
+  });
+
+  //
+  $('.screen-reader-response', $form.closest('.wpcf7')).each(function () {
+    var $response = $(this);
+    $response.html('').attr('role', '').append(data.message);
+
+    if (data.invalidFields) {
+      var $invalids = $('<ul></ul>');
+
+      $.each(data.invalidFields, function (i, n) {
+        if (n.idref) {
+          var $li = $('<li></li>').append($('<a></a>').attr('href', '#' + n.idref).append(n.message));
+        } else {
+          var $li = $('<li></li>').append(n.message);
+        }
+
+        $invalids.append($li);
+      });
+
+      $response.append($invalids);
+    }
+
+    $response.attr('role', 'alert').focus();
+  });
+
+  //
+  $.ajax({
+    type: 'POST',
+    url: wpcf7.apiSettings.getRoute(
+      '/contact-forms/' + wpcf7.getId($form) + '/feedback'),
+    data: formData,
+    dataType: 'json',
+    processData: false,
+    contentType: false
+  }).done(function (data, status, xhr) {
+    ajaxSuccess(data, status, xhr, $form);
+    $('.ajax-loader', $form).removeClass('is-active');
+  }).fail(function (xhr, status, error) {
+    var $e = $('<div class="ajax-error"></div>').text(error.message);
+    $form.after($e);
+  });
+</script>
+<!-- /buybuy.co -->
+
+<!-- bortsovki.com -->
+<script src="js/modernizr.min.js"></script>
+
+<script type="text/javascript">
+  Modernizr.svg || $("img[src*='svg']").attr("src", function () {
+    return $(this).attr("src").replace(".svg", ".png")
+  });
+</script>
+<!-- /bortsovki.com -->
+
+<!-- boosta.biz -->
+<script type="text/javascript">
+  $(".custom-select").each(function () {
+    var classes = $(this).attr("class"),
+      id = $(this).attr("id"),
+      name = $(this).attr("name");
+    placeholder = $(this).find('option:selected').text();
+    var template = '<span class="' + classes + '">';
+    //template += '<span class="custom-select-trigger">' + $(this).attr("placeholder") + '</span>';
+    template += '<span class="custom-select-trigger">' + placeholder + '</span>';
+
+    template += '<div class="custom-options">';
+
+    template += '<div class="scrollbar" id="scroll-style">';
+
+    $(this).find("option").each(function () {
+      template += '<span class="custom-option ' + $(this).attr("class") + '" data-value="' + $(this).attr("value") + '">' + $(this).html() + '</span>';
+    });
+    template += '</div></div></div>';
+
+    $(this).wrap('<div class="custom-select-wrapper"></div>');
+    $(this).hide();
+    $(this).after(template);
+  });
+
+  $(".custom-option:first-of-type").hover(function () {
+    $(this).parents(".custom-options").addClass("option-hover");
+  }, function () {
+    $(this).parents(".custom-options").removeClass("option-hover");
+  });
+
+  $(".custom-select-trigger").on("click", function () {
+    $('html').one('click', function () {
+      $(".custom-select").removeClass("opened");
+    });
+    $(this).parents(".custom-select").toggleClass("opened");
+    event.stopPropagation();
+  });
+
+  $(".custom-option").on("click", function () {
+    $(this).parents(".custom-select-wrapper").find("select").val($(this).data("value"));
+    $(this).parents(".custom-options").find(".custom-option").removeClass("selection");
+    $(this).addClass("selection");
+    $(this).parents(".custom-select").removeClass("opened");
+    $(this).parents(".custom-select").find(".custom-select-trigger").text($(this).text());
+  });
+</script>
+<!-- /boosta.biz -->
+
 <!-- www.1340gallery.com -->
 <script type="text/javascript">
   function isValidName(name) {
