@@ -6,6 +6,932 @@
 </script>
 <!-- / -->
 
+<!-- startcom.pro -->
+<script type="text/javascript">
+  // Single-Page-Menu-Scrolling  Easy Plugin
+  function singlePageScroll() {
+    $('a.page-scroll').on('click', function(event) {
+      var $anchor = $(this);
+
+      $('html, body').stop().animate({
+        scrollTop: $($anchor.attr('href')).offset().top
+      }, 1500, 'easeInOutExpo');
+
+      event.preventDefault();
+    });
+  }
+
+  // Progress Bar
+  function progressBar() {
+    $('.progressSection').on('inview', function(event, visible, visiblePartX, visiblePartY) {
+      if (visible) {
+        $.each($('div.progress-bar'),function(){
+          $(this).css('width', $(this).attr('aria-valuenow')+'%');
+        });
+        $(this).off('inview');
+      }
+    });
+  }
+
+  //  	counter Section
+  function funFactCounting() {
+    if ($('.counting-section').length) {
+      $('.counting-section').on('inview', function(event, visible, visiblePartX, visiblePartY) {
+        if (visible) {
+          $(this).find('.timer').each(function () {
+            var $this = $(this);
+            $({ Counter: 0 }).animate({ Counter: $this.text() }, {
+              duration: 2000,
+              easing: 'swing',
+              step: function () {
+                $this.text(Math.ceil(this.Counter));
+              }
+            });
+          });
+          $(this).unbind('inview');
+        }
+      });
+    }
+  }
+
+  // Google Map
+  if ($('#googleMap').length) {
+    google.maps.event.addDomListener(window, 'load', init);
+
+    function init() {
+      var mapOptions = {
+        // How zoomed in you want the map to start at (always required)
+        zoom: 12,
+
+        // The latitude and longitude to center the map (always required)
+        center: new google.maps.LatLng(38.581572, -121.494400), // New York
+
+        // This is where you would paste any style found on Snazzy Maps.
+        styles: [{"featureType": "all","elementType": "labels.text.fill","stylers": [{"saturation": 36},{"color": "#333333"},{"lightness": 40}]},
+          {"featureType": "all","elementType": "labels.text.stroke","stylers": [{"visibility": "on"},{"color": "#ffffff"},{"lightness": 16}]},
+          {"featureType": "all","elementType": "labels.icon","stylers": [{"visibility": "off"}]},
+          {"featureType": "administrative","elementType": "geometry.fill","stylers": [{"color": "#fefefe"},{"lightness": 20}]},
+          {"featureType": "administrative","elementType": "geometry.stroke","stylers": [{"color": "#fefefe"},{"lightness": 17},{"weight": 1.2}]},
+          {"featureType": "landscape","elementType": "geometry","stylers": [{"color": "#f5f5f5"},{"lightness": 20}]},
+          {"featureType": "poi","elementType": "geometry","stylers": [{"color": "#f5f5f5"},{"lightness": 21}]},
+          {"featureType": "poi.park","elementType": "geometry","stylers": [{"color": "#dedede"},{"lightness": 21}]},
+          {"featureType": "road.highway","elementType": "geometry.fill","stylers": [{"color": "#ffffff"},{"lightness": 17}]},
+          {"featureType": "road.highway","elementType": "geometry.stroke","stylers": [{"color": "#ffffff"},{"lightness": 29},{"weight": 0.2}]},
+          {"featureType": "road.arterial","elementType": "geometry","stylers": [{"color": "#ffffff"},{"lightness": 18}]},
+          {"featureType": "road.local","elementType": "geometry","stylers": [{"color": "#ffffff"},{"lightness": 16}]},
+          {"featureType": "transit","elementType": "geometry","stylers": [{"color": "#f2f2f2"},{"lightness": 19}]},
+          {"featureType": "water","elementType": "geometry","stylers": [{"color": "#e9e9e9"},{"lightness": 17}]},
+          {"featureType": "water","elementType": "geometry.fill","stylers": [{"color": "#00b3fe"}]}]};
+
+      // Get the HTML DOM element that will contain your map
+      var mapElement = document.getElementById('googleMap');
+
+      // Create the Google Map using our element and options defined above
+      var map = new google.maps.Map(mapElement, mapOptions);
+
+      // Let's also add a marker while we're at it
+      var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(38.581572, -121.494400),
+        map: map,
+        title: 'Snazzy!'
+      });
+    }
+  }
+
+  // Back To Top
+  function backToTopBtnAppear() {
+    if ($("#toTop").length) {
+      var windowpos = $(window).scrollTop(),
+        backToTopBtn = $("#toTop");
+
+      if (windowpos > 300) {
+        backToTopBtn.fadeIn();
+      } else {
+        backToTopBtn.fadeOut();
+      }
+    }
+  }
+
+  function backToTop() {
+    if ($("#toTop").length) {
+      var backToTopBtn = $("#toTop");
+      backToTopBtn.on("click", function() {
+        $("html, body").animate({
+          scrollTop: 0
+        }, 1000);
+
+        return false;
+      })
+    }
+  }
+
+  // Preloader
+  function preloader() {
+    if ($('#preloader').length) {
+      $('#preloader').delay(500).fadeOut('slow');
+    }
+  }
+
+  // WHEN WINDOW LOAD
+  $(window).on("load", function() {
+
+    backToTop();
+
+    preloader();
+
+    funFactCounting();
+
+    progressBar();
+  });
+
+  // WHEN WINDOW SCROLL
+  $(window).on("scroll", function() {
+
+    backToTopBtnAppear();
+
+    singlePageScroll();
+  });
+</script>
+<!-- /startcom.pro -->
+
+<!-- sofihouse.org -->
+<script src="js/modernizr.js"></script>
+
+<script type="text/javascript">
+  //SVG Fallback
+  if(!Modernizr.svg) {
+    $("img[src*='svg']").attr("src", function() {
+      return $(this).attr("src").replace(".svg", ".png");
+    });
+  };
+</script>
+
+<script type="text/javascript">
+  // Аякс отправка форм
+  $(".contact-form").submit(function(e) {
+    if (!this.checkValidity()) {
+      e.preventDefault();
+      $.magnificPopup.open({
+        items: {
+          src: '#error'
+        },
+        type:"inline",
+        mainClass: 'mfp-fade',
+        showCloseBtn: true,
+        closeBtnInside: true,
+        removalDelay: 300
+      });
+    } else {
+      //$(this).parent('.form-inner').find('.error').fadeOut('slow');
+      $.ajax({
+        type: "POST",
+        url: "mail.php",
+        data: $(this).serialize()
+      }).done(function() {
+        $.magnificPopup.open({
+          items: {
+            src: '#success'
+          },
+          type:"inline",
+          mainClass: 'mfp-fade',
+          showCloseBtn: true,
+          closeBtnInside: true,
+          removalDelay: 300
+        });
+        setTimeout(function() {
+          $(".contact-form").trigger("reset");
+          //$(this).find("input[type=text], textarea").val("");
+        }, 1000);
+      });
+      return false;
+    }
+  });
+</script>
+<!-- /sofihouse.org -->
+
+<!-- sobolev.htmldev.pro -->
+<script type="text/javascript">
+  $(window).scroll(function() {
+
+    var y = $(this).scrollTop();
+    $('.benefits__link').each(function (event) {
+      id = $(this).attr('href');
+      if (y >= $(id).offset().top - 500) {
+        $('.benefits__link').not(this).removeClass('active');
+        $(this).addClass('active');
+      }
+    });
+
+  });
+</script>
+<!-- /sobolev.htmldev.pro -->
+
+<!-- sim.prystavka.com -->
+<script src="js/typewriter.js"></script>
+
+<script type="text/javascript">
+  // Parallax section
+  function initParallax() {
+    $('#about').parallax("100%", 0.1);
+    $('#feature').parallax("100%", 0.3);
+    $('#about').parallax("100%", 0.1);
+    $('#video').parallax("100%", 0.2);
+    $('#menu').parallax("100%", 0.3);
+    $('#team').parallax("100%", 0.3);
+    $('#gallery').parallax("100%", 0.1);
+    $('#contact').parallax("100%", 0.2);
+  }
+  initParallax();
+</script>
+
+<script type="text/javascript">
+  // preloader
+  $(window).load(function () {
+    $('.preloader').fadeOut(1000); // set duration in brackets
+  });
+
+  // smoothscroll
+  $(function() {
+    $('#home a, .navbar-default a').bind('click', function(event) {
+      var $anchor = $(this);
+
+      $('html, body').stop().animate({ scrollTop: $($anchor.attr('href')).offset().top - 49 }, 1000);
+
+      event.preventDefault();
+    });
+  });
+</script>
+<!-- /sim.prystavka.com -->
+
+<!-- pizzaitalia.lv_ru_dostavka -->
+<script type="text/javascript">
+// Prefix
+function agPropPrefix(agPropName, agValue, agDivide, agExclusionArr) {
+  if (agExclusionArr === undefined) {
+    var agExclusionArr = [];
+  }
+
+  var agPrefixesArr = ['-webkit-', '-moz-', '-ms-', '-o-'],
+    agVendors = agPrefixesArr.diff(agExclusionArr),
+    result = '',
+    agDivide = agDivide;
+
+  for (var i = 0; i < agVendors.length; i++) {
+    var agLastItem = i < (agVendors.length - 1);
+
+    if (agLastItem) {
+      agDivide = agDivide;
+    } else {
+      agDivide = '';
+    }
+    result += '\'' + agVendors[i] + agPropName + '\':\'' + agValue + '\'' + agDivide;
+  }
+  return result;
+}
+
+agPropPrefix('clip-path', 'polygon(15% 0, 84% 15%, 100% 50%, 89% 85%, 0 100%)', ',', ['-o-', '-moz-', '-webkit-']);
+</script>
+<!-- /pizzaitalia.lv_ru_dostavka -->
+
+<!-- open-solution.com.ua_ru -->
+<script type="text/javascript">
+  // Скролл к нужному блоку по клику в меню
+  $('.menu-list a, .scroll').click(function(e){
+    e.preventDefault();
+    var blockLink = $(this).attr('href');
+    var blockPosition = $(blockLink).offset().top;
+    $('html, body').animate({
+      scrollTop: blockPosition
+    }, 500);
+    $(this).parents('.dropdown-menu').slideUp(500);
+  });
+
+  // Анимация текстового блока Наша команда
+  $('.about-section .text-block').hover(function() {
+    $(this).find('.hover-block').stop(true, false).fadeIn(500);
+  }, function() {
+    $(this).find('.hover-block').stop(true, false).fadeOut(500);
+  });
+
+  // Анимация блоков вакансий
+  $('.team-block').hover(function() {
+    $(this).find('.left-side').stop(true, false).animate({
+      bottom: '-131px',
+      left: '240px'
+    }, 450, function() {
+      $(this).next('.right-side').stop(true, false).animate({
+        top: '-11px',
+        right: '209px'
+      }, 300, function(){
+        $(this).next('.hover-info').fadeIn(350);
+      });
+    });
+  }, function() {
+    $(this).find('.hover-info').fadeOut(350, function() {
+      $(this).siblings('.left-side').stop(true, false).animate({
+        bottom: '-330px',
+        left: '-20px'
+      }, 450);
+      $(this).siblings('.right-side').stop(true, false).animate({
+        top: '-210px',
+        right: '-10px'
+      }, 450);
+    });
+  });
+
+  // Открытие блоков с описанием вакансий; их закрытие
+  $('.job-block li').click(function(){
+    var jobIndex = $(this).data('index');
+    $(this).parents('.job-block').slideUp(500);
+    $(this).parents('.job-block').siblings('.job-description[data-index="' + jobIndex +'"]')
+      .slideDown(500);
+  });
+  $('.job-description .back').click(function(){
+    $(this).parents('.job-description').slideUp(500);
+    $(this).parents('.job-description').siblings('.job-block').slideDown(500);
+  });
+
+  // Индексы для вакансий
+  var liInd = 0;
+  $('.job-block li').each(function(){
+    $(this).attr('data-index', liInd);
+    liInd++;
+  });
+  var vacancyInd = 0;
+  $('.job-description').each(function(){
+    $(this).attr('data-index', vacancyInd);
+    vacancyInd++;
+  });
+
+  $('.team-block').click(function(){
+    $('a[href="#third"]').trigger('click');
+  });
+</script>
+<!-- /open-solution.com.ua_ru -->
+
+<!-- olsom.net -->
+<script type="text/javascript">
+  $('.slide-brand').on("init", function () {
+    $('.slide-brand').removeClass('noactive');
+  }).slick({
+    slidesToShow: slidesShow,
+    slidesToScroll: 1,
+    infinite: true,
+    dots: false,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    responsive: [
+      {
+        breakpoint: 1100,
+        settings: {
+          slidesToShow: 3
+        }
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 2
+        }
+      },
+      {
+        breakpoint: 575,
+        settings: {
+          slidesToShow: 1
+        }
+      }
+    ]
+  });
+
+  //
+  //footer bottom
+  function foottoBottom() {
+    var foot = $('#footer'),
+      main = $('#main');
+    var footHeight = foot[0].offsetHeight;
+    foot.css({'margin-top': '-' + footHeight + 'px'});
+    main.css({'padding-bottom': footHeight + 'px'});
+  }
+
+  foottoBottom();
+
+  $(window).resize(function () {
+    foottoBottom();
+  });
+
+  // Scroll to form and focus input
+  $('.down-to-form').click(function () {
+    $('html, body').animate({
+      scrollTop: ($('#footer .form-wr').first().offset().top )
+    }, 1000);
+    $('#footer .form-wr input[name=your-name]').focus();
+  });
+
+  // Images
+  var img = new Image();
+  img.src = $('#masthead .logo img').attr('src');
+  $('.logo-mob').html(img);
+</script>
+<!-- /olsom.net -->
+
+<!-- mobios.school_kyiv_ui-ux.php -->
+<script type="text/javascript">
+  jQuery(document).ready(function ($) {
+
+    // browser window scroll (in pixels) after which the "back to top" link is shown
+    var offset = 300,
+      //browser window scroll (in pixels) after which the "back to top" link opacity is reduced
+      offset_opacity = 1200,
+      //duration of the top scrolling animation (in ms)
+      scroll_top_duration = 700,
+      //grab the "back to top" link
+      $back_to_top = $('.cd-top');
+
+    //hide or show the "back to top" link
+    $(window).scroll(function () {
+      ( $(this).scrollTop() > offset ) ? $back_to_top.addClass('cd-is-visible') : $back_to_top.removeClass('cd-is-visible cd-fade-out');
+      if ($(this).scrollTop() > offset_opacity) {
+        $back_to_top.addClass('cd-fade-out');
+      }
+    });
+
+    //smooth scroll to top
+    $back_to_top.on('click', function (event) {
+      event.preventDefault();
+      $('body,html').animate({ scrollTop: 0 }, scroll_top_duration);
+    });
+
+  });
+
+  // убирает баг с инициализацией слайдера при переключении табов
+  $('.slick-next').trigger('click');
+</script>
+<!-- /mobios.school_kyiv_ui-ux.php -->
+
+<!-- limecs.co -->
+<script type="text/javascript">
+  // Scroll top
+  $('.scroll-top').on('click', function(){
+    $('body,html').animate({ scrollTop: 0 }, 500);
+  });
+
+  // Scroll tabs
+  $('#bottom-menu a, #about-us a, .slide-button, .scroll-button').on('click', function() {
+    event.preventDefault();
+    var id = $(this).attr('href'),
+      top = $(id).offset().top;
+    $('body,html').animate({ scrollTop: top }, 500);
+
+    $('.header-menu').removeClass('opened');
+    $('.logo').removeClass('menu-logo');
+  });
+
+  // Scroll
+  $(window).scroll(function () {
+    if ($(this).scrollTop() > 700) {
+      $('.scroll-top').fadeIn();
+    } else {
+      $('.scroll-top').fadeOut();
+    }
+  });
+
+  // file input
+  var lbl = $('.form-file_mark'),
+    btn = $('.form-file_button'),
+    inp = $('input[type="file"]'),
+    wrapper = $(".file-upload");
+
+  // Yep, it works!
+  btn.click(function () {
+    inp.click();
+  });
+
+  var file_api = (window.File && window.FileReader && window.FileList && window.Blob) ? true : false;
+
+  inp.change(function () {
+
+    var file_name;
+    if (file_api && inp[0].files[0])
+      file_name = inp[0].files[0].name;
+    else
+      file_name = inp.val().replace("C:\\fakepath\\", '');
+    if (!file_name.length)
+      return;
+
+    lbl.text(file_name);
+  }).change();
+
+  // validation
+  function validate() {
+
+    var errors = [];
+
+    var name = $('input[name="name"]').val(),
+      email = $('input[name="email"]').val(),
+      phone = $('input[name="phone"]').val(),
+      link_cv = $('input[name="link_to_cv"]').val(),
+      file_cv = $('input[name="file_cv"]').val();
+
+    if (name == '')
+      errors.push(options.vacancy_form_error_name);
+
+    if (email == '')
+      errors.push(options.vacancy_form_error_email);
+
+    if (phone == '')
+      errors.push(options.vacancy_form_error_phone);
+
+    if (link_cv == '' && file_cv == '')
+      errors.push(options.vacancy_form_error_cv);
+
+    if (link_cv != '') {
+      var expression = /[-a-zA-Z0-9@:%_\+.~#?&//=]{2,256}\.[a-z]{2,4}\b(\/[-a-zA-Z0-9@:%_\+.~#?&//=]*)?/gi;
+      var regex = new RegExp(expression);
+
+      if (!link_cv.match(regex)) {
+        errors.push(options.vacancy_form_error_cv_link);
+      }
+    }
+
+    if (errors.length > 0) {
+      addError(errors);
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  function addError(errors) {
+    var html = '<p>';
+
+    for (var i = 0; i < errors.length; i++) {
+      html += errors[i] + '<br />';
+    }
+    html += '</p>';
+
+    $('.error-popup .popup-header h3').html(options.vacancy_form_error_title);
+    $('.error-popup .popup-content').html(html);
+
+    showPopup();
+  }
+
+  function showPopup() {
+    $('.error-popup').addClass('open');
+    $('.overflow').addClass('open');
+  }
+
+  $('#vacancy-form').submit(function () {
+    return validate();
+  });
+
+  $('input[name="name"]').keypress(function (e) {
+    var charTyped = String.fromCharCode(e.which);
+    if (!/[a-zA-Zа-яёА-ЯЁ\ \.\-]/i.test(charTyped)) {
+      return false;
+    }
+  });
+
+  $('input[name="age"]').keypress(function (e) {
+    var enterkey = e.key;
+    var total = $(this).val() + enterkey;
+    return parseInt(total) < parseInt($(this).attr('max'));
+  });
+
+  function validateFormPage() {
+    var errors = [];
+
+    var form = $('form.form-page__form');
+
+    var name = form.find('input[name="name"]').val(),
+      email = form.find('input[name="email"]').val(),
+      phone = form.find('input[name="phone"]').val(),
+      age = form.find('input[name="age"]').val();
+
+    if (name == '')
+      errors.push(options.vacancy_form_error_name);
+
+    if (email == '')
+      errors.push(options.vacancy_form_error_email);
+
+    if (phone == '')
+      errors.push(options.vacancy_form_error_phone);
+
+    if (age == '')
+      errors.push(options.vacancy_form_error_age);
+
+    if (errors.length > 0) {
+      addError(errors);
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  $('form.form-page__form').submit(function () {
+    console.log('hello');
+    return validateFormPage();
+  });
+
+  $('[name="phone"]').on('click', function () {
+    $(this).mask('+38(000) 000-0000');
+  });
+
+  $('.close-icon').on('click', function () {
+    $('.error-popup').removeClass('open');
+    $('.overflow').removeClass('open');
+  });
+</script>
+<!-- /limecs.co -->
+
+<!-- lifestyle.makler.fit -->
+<script type="text/javascript">
+  $("#menu").on("click","a", function (event) {
+    //отменяем стандартную обработку нажатия по ссылке
+    event.preventDefault();
+    var id  = $(this).attr('href'), top = $(id).offset().top;
+    $('body,html').animate({scrollTop: top}, 1500);
+  });
+</script>
+<!-- /lifestyle.makler.fit -->
+
+<!-- legkanosha.com.ua_kitchen -->
+<script type="text/javascript">
+  $(".scroll_to").click(function () {
+    var href = $(this).attr("href");
+
+    $('html, body').animate({scrollTop: $(href).offset().top}, 400);
+
+    return false;
+  });
+
+  // Показ изображений при наведении на название блюда
+  $(".recept-list__list a").hover(function () {
+    var id = $(this).data("img");
+    $(id).show();
+  }, function () {
+    $(".recept-list__img > img").hide();
+  });
+</script>
+<!-- /legkanosha.com.ua_kitchen -->
+
+<!-- kupiprosto.com.ua -->
+<script type="text/javascript">
+  $('.tab2').hover(
+    function() {
+      var id = $(this).attr('tab');
+      document.getElementById(id).style.height = 'auto';
+    }, function() {
+      var id = $(this).attr('tab');
+      document.getElementById(id).style.height = '0';
+    }
+  );
+  $('.tab').hover(
+    function() {
+      var id = $(this).attr('id');
+      document.getElementById(id).style.height = 'auto';
+    }, function() {
+      var id = $(this).attr('id');
+      document.getElementById(id).style.height = '0';
+    }
+  );
+</script>
+<!-- /kupiprosto.com.ua -->
+
+<!-- iz.ru -->
+<script type="text/javascript">
+  after768 = function() { //проверка на размер экрана от 768 пикс.
+    if (screen.width>=768){
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  device.mobile = function () {
+    return device.androidPhone() || device.iphone() || device.ipod() || device.windowsPhone() || device.blackberryPhone() || device.fxosPhone() || device.meego();
+  };
+
+// show/hide footer when scrolling
+var scroll = 0, //переменная для хранения предыдущего значения скролла
+  scrollStatusTop = true; //переменная хранения статуса прокрутки (вниз/вверх)
+function showFuter() {
+  $(".footer__block").removeClass("footer__block_hide");
+}
+function hideFuter() {
+  $(".footer__block").addClass("footer__block_hide"); //класс скрытого футера
+}
+function down_page_footer() {
+  if ($(window).scrollTop() + $(window).height() >= $(document).height()) {
+    showFuter();
+  }
+}
+function footerScroll() {
+  if (after768() && !device.mobile()) {
+    if ($(window).scrollTop() != scroll) {
+      if ($(window).scrollTop() > scroll && $(window).scrollTop() != scroll) { //проверка на прокрутку вниз
+        if (scrollStatusTop != false) {
+          hideFuter();
+          scrollStatusTop = false; //вниз
+        }
+      } else {
+        if (scrollStatusTop != true) {
+          scrollStatusTop = true; //наверх
+          showFuter();
+        }
+      }
+      scroll = $(window).scrollTop();
+    }
+  }
+}
+
+//
+  var lastScrollTop = 0;
+
+  function check_footer(lastScrollTop) {
+    var direction = 0;
+    var st = $(window).scrollTop();
+    if (st > lastScrollTop){
+      direction = 'bottom';
+    } else {
+      direction = 'top';
+    }
+    lastScrollTop = st;
+  }
+
+  //
+  $(window).on("scroll", function(){
+    if (after768() && !device.mobile()){
+      check_top_panel();
+      check_footer();
+      footerScroll();
+      down_page_footer();
+    }
+    button_position_got_to_top();
+  });
+
+  // search
+  $('a.search').click(function () {
+    search_hide();
+    $('.search_block__top #edit-text').focus();
+    return false;
+  });
+
+  function search_hide() {
+    $(".search_block").toggleClass('active');
+    if (after768()) {
+
+      $('a.search').toggle();
+      $('.top-panel-inside__bottom__right__icons-list').toggleClass("active-search-box");
+    } else {
+      $('a.search').toggleClass("active-search");
+    }
+    $('.fix-black-bg').toggle();
+
+    //$('.search_li').css('right', '100px')
+  }
+
+  // Lazyload activate
+  (function () {
+
+    try {
+      $('img.owl-lazy:not([data-src=""],.owl-lazyonload),img:not([data-src=""],.owl-lazyonload)')
+        .filter(function () {
+          return $(this).parents('.owl-carousel').length <= 0;
+        }).lazyload({
+        data_attribute: 'src',
+        load: function () {
+          setTimeout(function () {
+            $(window).trigger('scroll');
+            $(document).trigger('scroll');
+          }, 400);
+          $(this).addClass('owl-lazyonload');
+        }
+      });
+
+    } catch (err) {
+    }
+    ;
+
+    $(document).ajaxComplete(function () {
+
+      try {
+        $('img.owl-lazy:not([data-src=""],.owl-lazyonload),img:not([data-src=""],.owl-lazyonload)')
+          .filter(function () {
+            var bool = $(this).parents('.owl-carousel').length <= 0 || $(this).parents('.owl-carousel').length > 0 && $(this).parents('.two_big_photos__inside').length > 0;
+            return bool;
+          }).lazyload({
+          data_attribute: 'src',
+          load: function () {
+            $(this).addClass('owl-lazyonload');
+          }
+        });
+      } catch (err) {
+      }
+      ;
+    });
+
+  }());
+
+  $(window).on('load', function () {
+    try {
+      $('img.owl-lazy:not([data-src=""],.owl-lazyonload),img:not([data-src=""],.owl-lazyonload)')
+        .filter(function () {
+          return $(this).parents('.owl-carousel').length <= 0 || $(this).parents('.owl-carousel').length > 0 && $(this).parents('.two_big_photos__inside').length > 0;
+        }).lazyload({
+        data_attribute: 'src',
+        load: function () {
+          $(this).addClass('owl-lazyonload');
+        }
+      });
+    } catch (err) {
+    }
+    ;
+  });
+</script>
+<!-- /iz.ru -->
+
+<!-- idapgroup.com -->
+<script type="text/javascript">
+  $('#footer__year').html(new Date().getFullYear());
+</script>
+<!-- /idapgroup.com -->
+
+<!-- icemint.co -->
+<script type="text/javascript">
+  // Wrap every letter in a span
+  $('.h3').each(function(){
+    $(this).html($(this).text().replace(/([^\x00-\x80]|\w)/g, "<span class='letter'>$&</span>"));
+  });
+
+  // Toggle Play/Pause
+  var video = document.querySelector('.doc-video'),
+    playButton = document.querySelector('.doc-video__play-btn'),
+    muteBtn = document.querySelector('.doc-video__musictoggle-btn');
+
+  playButton.addEventListener('click', togglePlay, false);
+  video.addEventListener('click', togglePlay, false);
+  muteBtn.addEventListener('click', toggleMute, false);
+
+  function togglePlay () {
+    if (video.paused) {
+      video.play();
+    } else {
+      video.pause();
+    }
+  }
+
+  function toggleMute () {
+    if (video.muted) {
+      video.muted = false;
+      $('.doc-video__musictoggle-btn').removeClass('doc-video__musictoggle-btn--mute');
+    } else {
+      video.muted = true;
+      $('.doc-video__musictoggle-btn').addClass('doc-video__musictoggle-btn--mute');
+    }
+  }
+
+  // add class js-scrolled
+  $(function () {
+    var o = $('[data-scrolling=true]');
+    var t = 'js-scrolled';
+    var e = $(window);
+    var r = (e.height() / 100) * 10;
+
+    e.on('load scroll touchmove resize', function () {
+      var i = e.height() - r;
+      var l = e.scrollTop();
+      var a = l + i;
+
+      $.each(o, function () {
+        var o = $(this);
+        var e = o.outerHeight();
+        var r = o.offset().top;
+
+        r + e >= l && r <= a && o.addClass(t);
+      });
+    });
+
+    e.trigger('load');
+  });
+
+  // * Smooth anchor
+  $(document).on('click', 'a[href^="#"]', function (event) {
+    event.preventDefault();
+    $('html, body').animate({scrollTop: $($.attr(this, 'href')).offset().top}, 750);
+  });
+
+  // random height
+  var equalizerLines = $('.js-equlizer_line');
+
+  setInterval(function () {
+    $.each(equalizerLines, function (index) {
+      var rand = 0 - 0.5 + Math.random() * (100 - 0 + 1);
+      rand = Math.round(rand);
+      $(this).css({height: rand + '%'});
+    })
+  }, 50);
+</script>
+<!-- /icemint.co -->
+
 <!--  -->
 <script type="text/javascript">
   //--| date & time |---//
