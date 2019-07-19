@@ -6,6 +6,528 @@
 </script>
 <!-- / -->
 
+<!--  -->
+<script type="text/javascript">
+// Preload
+if (typeof preloadStart != 'undefined' && new Date() - preloadStart < 4500) {
+  setTimeout(function () {
+    $('.preloader').fadeOut(function () {
+      $('body').addClass('loaded');
+    });
+  }, 4500 - (new Date() - preloadStart));
+} else {
+  setTimeout(function () {
+    $('.preloader').remove();
+    $('body').addClass('loaded');
+  }, 500);
+}
+
+// height
+var getVH = function (val) {
+  return (val / 810) * $(window).height();
+};
+
+getVH(80);
+
+// обращение к функции из другого файла $.fn.fullpage.moveTo(3);
+$(document).on('click', '.hireBtn', function (e) {
+  $('body').removeClass('showMenu');
+  $('.menuTrigger').removeClass('active');
+  if ($(e.currentTarget).hasClass('scrollTrigger')) {
+    e.preventDefault();
+    if ($(window).width() > 1023) {
+      $.fn.fullpage.moveTo(3);
+    } else {
+      $('body,html').animate({scrollTop: $('section.hireUs .formBlock').offset().top}, 700);
+    }
+    return false;
+  }
+});
+
+// меняет фоновую картинку при движении курсора
+$('section.intro').on("mousemove", function (e) {
+  if ($(window).width() > 1023) {
+    var w = $('section.intro').width(),
+      h = $('section.intro').height(),
+      x = e.clientX,
+      y = e.clientY,
+      indX = Math.ceil(x / (w / 5)),
+      indY = Math.ceil(y / (h / 4));
+    if (!indX || !indY) {
+      return false;
+    }
+    var ind = ((indY - 1) * 5) + indX;
+    $('section.intro .mainImage').attr('class', 'mainImage state-' + ind);
+  }
+});
+
+// Hover
+$('.sidebar nav ul li a').hover(function (e) {
+  $('body').addClass('navHovered');
+}, function (e) {
+  $('body').removeClass('navHovered');
+});
+
+// fullscreenElement
+window.launchFullScreen = function () {
+  var element = $('body')[0];
+  if (element.requestFullScreen) {
+    element.requestFullScreen();
+  } else if (element.mozRequestFullScreen) {
+    element.mozRequestFullScreen();
+  } else if (element.webkitRequestFullScreen) {
+    element.webkitRequestFullScreen();
+  }
+}
+
+window.cancelFullscreen = function () {
+  if (document.cancelFullScreen) {
+    document.cancelFullScreen();
+  } else if (document.mozCancelFullScreen) {
+    document.mozCancelFullScreen();
+  } else if (document.webkitCancelFullScreen) {
+    document.webkitCancelFullScreen();
+  }
+}
+
+window.checkFullscreen = function () {
+  if (document.fullscreenElement ||
+    document.mozFullscreenElement ||
+    document.webkitFullscreenElement) {
+    return true;
+  }
+  return false;
+};
+
+$(document).on('click', '.fullscreenTrigger', function (e) {
+  e.preventDefault();
+  if (checkFullscreen()) {
+    cancelFullscreen();
+  } else {
+    launchFullScreen();
+  }
+  return false;
+});
+
+// Redirect
+var redirect = function (newLocation) {
+  $('body').fadeOut(function () {
+    window.location = newLocation;
+  });
+};
+
+$(document).on('click', 'a:not(.scrollTrigger)', function (e) {
+  if (!e.ctrlKey && !e.metaKey) {
+    if ($(e.currentTarget).attr('target') != '_blank' && $(e.currentTarget).attr('href')[0] != '#' && !$(e.currentTarget).hasClass('noRedirect')) {
+      e.preventDefault();
+
+      redirect(this.href);
+    }
+  }
+});
+
+// Fixed header
+$(window).on('scroll', function (e) {
+  if ($(window).width() < 1024) {
+    if ($(window).scrollTop() > 0 && !$('header').hasClass('fixed')) {
+      $('header').addClass('fixed')
+    } else if ($(window).scrollTop() <= 0 && $('header').hasClass('fixed')) {
+      $('header').removeClass('fixed')
+    }
+  }
+});
+
+$(window).scroll();
+
+// slideUp function
+$(document).on('click', '.cookiePolicyWrapper .closeBtn', function (e) {
+  e.preventDefault();
+  $('.cookiePolicyWrapper').slideUp(function () {
+    $('.cookiePolicyWrapper').remove();
+  });
+  $.cookie('cookiePolicyClose', true, {
+    path: '/',
+    expires: 365
+  });
+  return false;
+});
+</script>
+<!-- / -->
+
+<!-- www.zinkit.club -->
+<script type="text/javascript">
+  //Preloader
+  setTimeout(function () {
+    $('#preloader').fadeOut('slow', function () {
+      $(this).remove();
+    });
+  }, 1000);
+
+  // запрет перетаскивать картинку (img) и ссылку (a)
+  $('img, a').on('dragstart', function (event) {
+    event.preventDefault();
+  });
+
+  //
+  var curUrl = document.location.href,
+    curUrlArr =  curUrl.split('#'),
+    curUrlAnc =  '#' + curUrlArr[1],
+    destination = $(curUrlAnc).offset().top - 265;
+
+  $('html:not(:animated),body:not(:animated)').animate({ scrollTop: destination }, 100);
+</script>
+<!-- /www.zinkit.club -->
+
+<!-- www.swivl.com -->
+<script type="text/javascript">
+  // is Touch
+  var isTouchDevice = "ontouchstart" in window || navigator.msMaxTouchPoints;
+
+  // loader
+  var fc_css = document.createElement("link");
+
+  fc_css.setAttribute("rel", "stylesheet");
+  fc_css.setAttribute("media", "screen");
+  fc_css.setAttribute("href", "https://cdn.foxycart.com/swivl/responsive_styles.1548788064.css");
+
+  var fc_script = document.createElement("script");
+
+  window.jQuery && (1 <= window.jQuery.fn.jquery.match(/(\d+)\.(\d+)/)[1] && 7 < window.jQuery.fn.jquery.match(/(\d+)\.(\d+)/)[2] || 2 <= window.jQuery.fn.jquery.match(/(\d+)\.(\d+)/)[1]) ? fc_script.src = "https://cdn.foxycart.com/swivl/foxycart.jsonp.sidecart.min.1548808583.js" : fc_script.src = "https://cdn.foxycart.com/swivl/foxycart.jsonp.sidecart.with-jquery.min.1548808583.js";
+
+  function fc_loader() {
+    document.getElementsByTagName("body")[0].appendChild(fc_script);
+    document.getElementsByTagName("body")[0].appendChild(fc_css);
+  }
+
+  document.readyState === "complete" ? fc_loader() : window.addEventListener ? window.addEventListener("load", fc_loader, !1) : window.attachEvent ? window.attachEvent("onload", fc_loader) : window.onload = fc_loader;
+
+</script>
+<!-- /www.swivl.com -->
+
+<!-- www.shvayko.com -->
+<script type="text/javascript">
+  var mousewheelevt = (/Firefox/i.test(navigator.userAgent)) ? "DOMMouseScroll" : "mousewheel"; //FF doesn't recognize mousewheel as of FF3.x
+</script>
+<!-- /www.shvayko.com -->
+
+<!-- www.pingdom.com (table responsive) -->
+<script type="text/javascript">
+  function isMobile() {
+    return !!/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+  }
+
+  // IE11
+  isIE11 = !!navigator.userAgent.match(/Trident.*rv\:11\./);
+
+  // preload Pictures
+  preloadPictures = function (e, t) {
+    var i, o, n = 0;
+
+    for (i = 0, o = e.length; i < o; i++) ! function (i, o) {
+      i.onload = function () {
+        ++n == e.length && t && t()
+      },
+      i.onerror = function () {},
+      i.onabort = function () {},
+      i.src = o
+    }(new Image, e[i])
+  }
+
+  // Date
+  function a(e) {
+    var t = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+      i = e.getDate(),
+      o = e.getMonth(),
+      n = e.getFullYear();
+    return i + " " + t[o] + " " + n;
+  }
+</script>
+<!-- /www.pingdom.com (table responsive) -->
+
+<!--  -->
+<script type="text/javascript">
+  var $body = $("body");
+
+  $body.on("keyup", ".field_with_errors input", reset);
+  $body.on("submit", ".js-form", onFormSubmit);
+
+  var $spinner = $(".creating-account-spinner");
+
+  function reset() {
+    $(".field_with_errors").removeClass("field_with_errors");
+    $(".js-error").empty();
+    $("[disabled]").removeAttr("disabled");
+  }
+  function onFormSubmit(event) {
+    event.preventDefault();
+
+    var $form = $(this);
+    var email = $form.find("[name='form[email]']").val();
+    var password = $form.find("[name='form[password]']").val();
+
+    reset();
+
+    $.ajax({
+      type: "POST",
+      url: $form.attr("action"),
+      data: $form.serialize(),
+      success: onSignUpSuccess(email, password)
+    });
+  }
+
+  function onSignUpSuccess(email, password) {
+    return function (response) {
+      $spinner.addClass("hidden");
+
+      if (response.error) {
+        Object.keys(response.error.errors).forEach(function (key) {
+          $(".input." + key).addClass("field_with_errors");
+          $("." + key + " .js-error").html(response.error.errors[key]);
+        });
+        return;
+      }
+      $("#form-login [name='email']").val(email)
+      $("#form-login [name='password']").val(password)
+      $("#form-login").submit()
+    }
+  }
+</script>
+<!-- / -->
+
+<!-- www.icgeurope.com -->
+<script type="text/javascript">
+  // IE Detect
+  if (Function('/*@cc_on return document.documentMode===10@*/')()) {
+    $("html").addClass("ie");
+  }
+
+  // Mobile Detect
+  if (/Android|iPhone|iPad|iPod|BlackBerry|Windows Phone/i.test(navigator.userAgent || navigator.vendor || window.opera)) {
+    $("html").addClass("mobile");
+    $('.dropdown-toggle').attr('data-toggle', 'dropdown');
+  } else {
+    $("html").removeClass("mobile");
+  }
+
+  // Progress Bars
+  var $section = $('#animated-skills').appear(function() {
+
+    function loadDaBars() {
+      var bar = $('.progress-bar');
+      var bar_width = $(this);
+      $(function(){
+        $(bar).each(function(){
+          bar_width = $(this).attr('aria-valuenow');
+          $(this).width(bar_width + '%');
+        });
+      });
+    }
+
+    loadDaBars();
+  });
+
+  // Accordion
+  var allPanels = $(".accordion > .panel-content").hide();
+
+  allPanels.first().slideDown("easeOutExpo");
+  $(".accordion > .acc-panel > a").first().addClass("active");
+
+  $(".accordion > .acc-panel > a").on('click', function () {
+
+    var current = $(this).parent().next(".panel-content");
+
+    $(".accordion > .acc-panel > a").removeClass("active");
+    $(this).addClass("active");
+    allPanels.not(current).slideUp("easeInExpo");
+    $(this).parent().next().slideDown("easeOutExpo");
+
+    return false;
+
+  });
+
+  // Contact Form
+  var submitContact = $('#submit-message'),
+    message = $('#msg');
+
+  submitContact.on('click', function (e) {
+    e.preventDefault();
+
+    var $this = $(this);
+
+    $.ajax({
+      type: "POST",
+      url: 'https://www.icgeurope.com/contact.php',
+      dataType: 'json',
+      cache: false,
+      data: $('#contact-form').serialize(),
+      success: function (data) {
+        if (data.info !== 'error') {
+          $this.parents('form').find('input[type=text],input[type=email],textarea,select').filter(':visible').val('');
+          message.hide().removeClass('success').removeClass('error').addClass('success').html(data.msg).fadeIn('slow').delay(5000).fadeOut('slow');
+        } else {
+          message.hide().removeClass('success').removeClass('error').addClass('error').html(data.msg).fadeIn('slow').delay(5000).fadeOut('slow');
+        }
+      }
+    });
+  });
+
+  // Scroll to Top
+  (function () {
+    "use strict";
+
+    var docElem = document.documentElement,
+      didScroll = false,
+      changeHeaderOn = 550;
+    document.querySelector('#back-to-top');
+    function init() {
+      window.addEventListener('scroll', function () {
+        if (!didScroll) {
+          didScroll = true;
+          setTimeout(scrollPage, 50);
+        }
+      }, false);
+    }
+
+  })();
+
+  $(window).scroll(function (event) {
+    var scroll = $(window).scrollTop();
+    if (scroll >= 50) {
+      $("#back-to-top").addClass("show");
+    } else {
+      $("#back-to-top").removeClass("show");
+    }
+  });
+
+  $('a[href="#top"]').on('click', function () {
+    $('html, body').animate({scrollTop: 0}, 'slow');
+    return false;
+  });
+</script>
+<!-- /www.icgeurope.com -->
+
+<!-- www.genymotion.com -->
+<script type="text/javascript">
+  $(function () {
+    function currentPlatform() {
+      return navigator.platform.indexOf("Win") != -1 ? "windows" : navigator.platform.indexOf("Mac") != -1 ? "mac" : "linux";
+    }
+
+    function rotateArray(array) {
+      return array.push(array.shift()), array;
+    }
+
+    if (0 != $(".page-download-trial").length) {
+      for (var platforms = ["windows", "mac", "linux"], centerIndex = Math.floor(platforms.length / 2); platforms[centerIndex] != currentPlatform();) rotateArray(platforms);
+
+      platforms.forEach(function (platform) {
+        var template = $("#download-card-" + platform),
+          templateInstance = template.clone();
+
+        template.remove(), $(templateInstance).removeClass("hide"), $("#download-cards").append(templateInstance);
+
+        var templateCardIcon = $("#download-card-icon-" + platform), templateCardIconInstance = templateCardIcon.clone();
+
+        templateCardIcon.remove(), $(templateCardIconInstance).removeClass("hide"), $("#download-cards-icons").append(templateCardIconInstance)
+      }), $(".download-card-" + currentPlatform()).addClass("download-card-primary"), $(".cgi-checkbox").click(function (event) {
+        var targetedClass = $(event.target).prop("name");
+
+        $(event.target).is(":checked") ? $("." + targetedClass).removeClass("disabled") : $("." + targetedClass).addClass("disabled")
+      }), $(".download-btn").on("click", function (event) {
+        event.preventDefault(), $(event.target).hasClass("disabled") || request_trial_license(function () {
+          window.location = "/thank-you-trial/?opt=" + $(event.currentTarget).data("opt"), $(this).blur()
+        }.bind(this));
+      });
+    }
+  });
+</script>
+<!-- /www.genymotion.com -->
+
+<!-- www.dijust.com -->
+<script type="text/javascript">
+  var navPos, winPos;
+
+  function refreshVar() {
+    navPos = $('.stiky-nav').offset().top;
+    navHeight = $('.stiky-nav').outerHeight(true);
+  }
+
+  refreshVar();
+  $(window).resize(refreshVar);
+
+  //Отключение скрола на карте
+  $('#address').addClass('scrolloff'); // set the pointer events to none on doc ready
+
+  $('#contacts-map').on('click', function () {
+    $('#address').removeClass('scrolloff'); // set the pointer events true on click
+  });
+
+  // you want to disable pointer events when the mouse leave the canvas area;
+  $("#address").mouseleave(function () {
+    $('#address').addClass('scrolloff'); // set the pointer events to none when mouse leaves the map area
+  });
+</script>
+<!-- /www.dijust.com -->
+
+<!-- truedesign.cadeniuc.pro -->
+<script type="text/javascript">
+  // parr
+  var hover_to_parralax = $('.moving_zone');
+  hover_to_parralax.mousemove(function (e) {
+
+    var wx = $(window).width();
+    var wy = $(window).height();
+
+    var x = e.pageX - this.offsetLeft;
+    var y = e.pageY - this.offsetTop;
+
+    var newx = x - wx / 2;
+    var newy = y - wy / 2;
+
+    $(this).find('.effect_paralax').each(function () {
+      var speed = $(this).attr('data-speed');
+
+      if ($(this).attr('data-revert')) speed *= -1;
+
+      TweenMax.to($(this), .7, {x: (1 - newx * speed), y: (1 - newy * speed)});
+    });
+  });
+
+  TweenMax.to($('.effect_paralax'), .7, {x: (1), y: (-32)});
+
+  // ESC key
+  $(document).keyup(function(e) {
+    if (e.keyCode === 27) $('#close_menu,.close_video_modal').click();
+  });
+
+  // Detect IE
+  function isIE() {
+    ua = navigator.userAgent;
+    /* MSIE used to detect old browsers and Trident used to newer ones*/
+    var is_ie = ua.indexOf("MSIE ") > -1 || ua.indexOf("Trident/") > -1;
+
+    return is_ie;
+  }
+</script>
+<!-- /truedesign.cadeniuc.pro -->
+
+<!-- test.easyplanet.fr -->
+<script type="text/javascript">
+  //material inputs
+  function matInputs() {
+    $(".es-form-input, #es-textarea").focus(function(){
+      $(this).parent().addClass("is-valid");
+    });
+
+    $(".es-form-input, #es-textarea").focusout(function(){
+      if($(this).val() === "") {
+        $(this).parent().removeClass("is-valid");
+      }
+    })
+  }
+</script>
+<!-- /test.easyplanet.fr -->
+
 <!-- startcom.pro -->
 <script type="text/javascript">
   // Single-Page-Menu-Scrolling  Easy Plugin
