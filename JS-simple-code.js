@@ -160,3 +160,22 @@ const car = {
 console.log(Object.entries(car))
 console.log(Object.values(car))
 console.log(Object.keys(car))
+
+
+// 19
+/* Add style file for IE browser*/
+(function () {
+  const ua = window.navigator.userAgent
+  const msie = ua.indexOf('MSIE ')
+
+  if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)) {
+    const htmlClassList = document.getElementsByTagName('html')[0];
+    const msiStyle = document.createElement('link');
+    htmlClassList.className += ' ieBrowser';
+    msiStyle.setAttribute('href', 'static/assets/stylesheets/ie.css');
+    msiStyle.setAttribute('rel', 'stylesheet');
+    document.head.appendChild(msiStyle);
+  }
+  return null;
+})();
+/* /Add style file for IE browser */

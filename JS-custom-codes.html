@@ -3520,3 +3520,41 @@ if (/(chrom)/i.test(navigator.userAgent)) document.documentElement.className += 
 <!-- https://eduzorro.com/courses/category/web-development/ -->
 document.documentElement.className = document.documentElement.className.replace( 'no-js', 'js' );
 <!--  /https://eduzorro.com/courses/category/web-development/ -->
+
+
+<script>
+  // Prefix
+  Array.prototype.diff = function (a) {
+    return this.filter(function (i) {
+      return a.indexOf(i) < 0;
+    });
+  };
+
+
+  function agPropPrefix(argPropName, argValue, argDivide, argExclusionArr) {
+    if (argExclusionArr === 'undefined') {
+      var argExclusionArr = [];
+    }
+
+//console.log(argExclusionArr);
+
+    var agPrefixesArr = ['-webkit-', '-moz-', '-ms-', '-o-'],
+      agVendors = agPrefixesArr.diff(argExclusionArr),
+      agDivide = argDivide,
+      result = '';
+
+    for (var i = 0; i < agVendors.length; i++) {
+      var agLastItem = i < (agVendors.length - 1);
+
+      if (agLastItem) {
+        agDivide = argDivide;
+      } else {
+        agDivide = '';
+      }
+      result += '\'' + agVendors[i] + argPropName + '\':\'' + argValue + '\'' + agDivide;
+    }
+    return result;
+  }
+
+  agPropPrefix('transform', 'translateX(50%)', ',', ['-ms-']);
+</script>
